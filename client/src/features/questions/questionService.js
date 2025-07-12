@@ -1,0 +1,38 @@
+import axios from "axios"
+
+const getAllQuestions = async(token) => {
+
+   let options = {
+        headers : {
+            authorization : `Bearer ${token}`
+        }
+    }
+
+    const response = await  axios.get(`/api/question` , options)
+
+    return response.data
+
+}
+
+//Add income
+const addQuestion = async(formData , token) => {
+
+    console.log(formData)
+
+   let options = {
+        headers : {
+            authorization : `Bearer ${token}`
+        }
+    }
+
+    const response = await  axios.post(`/api/question` , formData ,options)
+
+    return response.data
+    // console.log(response.data)
+
+}
+
+
+const questionService = {getAllQuestions , addQuestion}
+
+export default questionService
