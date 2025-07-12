@@ -11,6 +11,11 @@ const connectDb = require("./config/db_config")
 //db connection
 connectDb()
 
+//Middlewares
+app.use(express.json())
+app.use(express.urlencoded())
+
+
 //Default Routes
 app.get("/" , (req , res) => {
 
@@ -19,6 +24,15 @@ app.get("/" , (req , res) => {
     })
 
 })
+
+//AUTH ROUTES
+app.use("/api/auth" , require("./Routes/authRoutes"))
+
+//Question Routes
+app.use("/api/question" , require("./Routes/questionRoutes"))
+
+//Answer Routes
+app.use("/api/answer" , require("./Routes/answerRoutes"))
 
 app.listen(PORT , () => {
     console.log(`Server is running at port : ${PORT}`.bgCyan)
