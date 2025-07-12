@@ -34,6 +34,10 @@ app.use("/api/question" , require("./Routes/questionRoutes"))
 //Answer Routes
 app.use("/api/answer" , require("./Routes/answerRoutes"))
 
+
+//Like Routes
+app.use("/api/like" , require("./Routes/likeRoutes"))
+
 app.listen(PORT , () => {
     console.log(`Server is running at port : ${PORT}`.bgCyan)
 })

@@ -2,11 +2,11 @@ const {mongoose} = require("mongoose");
 
 const questionSchema = new mongoose.Schema(
     {
-        user : {
-            type : mongoose.Schema.Types.ObjectId ,
-            ref : 'User' ,
-            required : true
-        } ,
+         postedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
         title : {
             type : String ,
             required :true
@@ -15,9 +15,11 @@ const questionSchema = new mongoose.Schema(
             type : String ,
             required : true ,
         } ,
-        tags : {
-            type : [String],
-        } ,
+        tags: [
+        {
+            type: String
+        }
+    ],
        
     } , 
     {

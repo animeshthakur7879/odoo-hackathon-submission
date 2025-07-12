@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken")
 
 const loginUser = expressAsyncHandler(async(req , res) => {
     
-    const {name , email , phoneNumber } = req.body
+    const {name , email , phoneNumber , avatar } = req.body
 
     if(!name || !email) {
         res.status(400)
@@ -16,12 +16,11 @@ const loginUser = expressAsyncHandler(async(req , res) => {
     if(!user){
        try {
             user = await User.create({
-                name , email , phoneNumber
+                name , email , phoneNumber , avatar
             })
             res.status(200).json({
             name : user.name , 
             email : user.email ,
-            phoneNumber : user.phoneNumber , 
             token : generateToken(user._id) ,
             id : user._id
     })

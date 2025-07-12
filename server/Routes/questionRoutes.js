@@ -1,12 +1,13 @@
 const express = require("express")
-const { addQuestion, getQuestions, getSingleQuestion, updateQuestion, deleteQuestion } = require("../Controller/questionController")
+const {  getQuestions, getSingleQuestion, updateQuestion, deleteQuestion, addQuestion } = require("../Controller/questionController")
+const protect = require("../middleware/authMiddleware")
 
 const router = express.Router()
 
-router.post("/" , addQuestion)
-router.get("/" , getQuestions)
-router.get("/:qid" , getSingleQuestion)
-router.put("/:qid" , updateQuestion)
-router.delete("/:qid" , deleteQuestion)
+router.post("/" ,protect, addQuestion)
+router.get("/" ,protect, getQuestions)
+router.get("/:qid" ,protect, getSingleQuestion)
+router.put("/:qid" ,protect, updateQuestion)
+router.delete("/:qid" ,protect, deleteQuestion)
 
 module.exports = router
