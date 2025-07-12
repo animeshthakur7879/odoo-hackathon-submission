@@ -5,7 +5,7 @@ const questionSlice = createSlice({
     name : 'question' , 
     initialState : {
         allQuestions : []  ,
-        question : {} ,
+        singleQuestion : {} ,
         isLoading : false , 
         isSuccess : false ,
         isError : false ,
@@ -50,6 +50,24 @@ const questionSlice = createSlice({
                 state.isError = true
                 state.message = action.payload
             })
+            //ADD QUESTION LICE
+            .addCase(getQuestion.pending , (state , action)    => {
+                state.isLoading = true
+                state.isSuccess = false 
+                state.isError = false
+            })
+            .addCase(getQuestion.fulfilled , (state , action)    => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.singleQuestion = action.payload
+                state.isError = false
+            })
+            .addCase(getQuestion.rejected , (state , action)    => {
+                state.isLoading = false
+                state.isSuccess = false 
+                state.isError = true
+                state.message = action.payload
+            })
         
     }
 })
@@ -80,6 +98,21 @@ export const getQuestions = createAsyncThunk(
         let token = thunkAPI.getState().auth.user.token
         try {
             return await questionService.getAllQuestions( token)
+        } catch (error) {
+            const message = error.response.data.message
+            thunkAPI.rejectWithValue(message)
+        }
+    }
+)
+
+//GET QUESTION 
+
+export const getQuestion = createAsyncThunk(
+    "GET/QUESTION" , 
+    async ( qid , thunkAPI) => {
+        let token = thunkAPI.getState().auth.user.token
+        try {
+            return await questionService.getAllQuestion( token)
         } catch (error) {
             const message = error.response.data.message
             thunkAPI.rejectWithValue(message)

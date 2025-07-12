@@ -14,7 +14,23 @@ const getAllQuestions = async(token) => {
 
 }
 
-//Add income
+//Get single question
+
+const getQuestion = async(qid , token) => {
+
+   let options = {
+        headers : {
+            authorization : `Bearer ${token}`
+        }
+    }
+
+    const response = await  axios.get(`/api/question/${qid}` , options)
+
+    return response.data
+
+}
+
+//Add question
 const addQuestion = async(formData , token) => {
 
     console.log(formData)
@@ -33,6 +49,6 @@ const addQuestion = async(formData , token) => {
 }
 
 
-const questionService = {getAllQuestions , addQuestion}
+const questionService = {getAllQuestions , addQuestion , getQuestion}
 
 export default questionService
